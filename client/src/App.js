@@ -2,7 +2,44 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { accessToken, logout, getCurrentUserProfile } from './Spotify.js';
 import { catchErrors } from './utils';
-import './App.css';
+import styled, { createGlobalStyle } from 'styled-components/macro';
+
+const GlobalStyle = createGlobalStyle`
+  :root {
+    --black: #121212;
+    --green: #1DB954;
+    --white: #ffffff;
+
+    --font: 'Circular Std', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+
+  html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--black);
+    color: var(--white);
+    font-family: var(--font);
+  }
+`;
+
+const StyledLoginButton = styled.a`
+    background-color: var(--green);
+    color: var(--white);
+    padding: 10px 20px;
+    margin: 20px;
+    border-radius: 30px;
+    display: inline-block;
+`;
 
 function App() {
     const [token, setToken] = useState(null);
@@ -21,13 +58,14 @@ function App() {
 
     return (
         <div className="App">
+            <GlobalStyle />
             <header className="App-header">
                 {!token ? (
-                    <a
+                    <StyledLoginButton
                         className="App-link"
                         href="http://localhost:8888/login">
                         Log in to Spotify
-                    </a>
+                    </StyledLoginButton>
                 ) : (
                     <Router>
                         <Routes>
