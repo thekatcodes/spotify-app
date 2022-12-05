@@ -4,7 +4,7 @@ import { accessToken, logout, getCurrentUserProfile } from './Spotify.js';
 import { catchErrors } from './utils';
 import { GlobalStyle } from './styles';
 import styled from 'styled-components/macro';
-import { Login, Profile, TopArtists, TopTracks } from './pages';
+import { Login, Profile, TopArtists, TopTracks, Playlists } from './pages';
 
 const StyledLogoutButton = styled.button`
     position: absolute;
@@ -61,7 +61,7 @@ function App() {
                                     element={<h1>Playlist</h1>}></Route>
                                 <Route
                                     path="/playlists"
-                                    element={<h1>Playlists</h1>}></Route>
+                                    element={<Playlists />}></Route>
                                 <Route
                                     path="/"
                                     element={<Profile />}></Route>
