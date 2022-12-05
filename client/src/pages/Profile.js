@@ -7,6 +7,7 @@ import {
     getTopTracks,
 } from '../Spotify';
 import {
+    Loader,
     SectionWrapper,
     ArtistsGrid,
     TrackList,
@@ -72,7 +73,7 @@ const Profile = () => {
                             </div>
                         </div>
                     </StyledHeader>
-                    {topArtists && topTracks && playlists && (
+                    {topArtists && topTracks && playlists ? (
                         <main>
                             <SectionWrapper
                                 title="Top artists this month"
@@ -98,6 +99,8 @@ const Profile = () => {
                                 />
                             </SectionWrapper>
                         </main>
+                    ) : (
+                        <Loader />
                     )}
                 </>
             )}
