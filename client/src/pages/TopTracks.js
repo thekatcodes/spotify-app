@@ -1,37 +1,35 @@
 import { useState, useEffect } from 'react';
 import { catchErrors } from '../utils';
-import { getTopArtists } from '../Spotify';
-import { SectionWrapper, ArtistsGrid, TimeRangeButtons } from '../components';
+import { getTopTracks } from '../Spotify';
+import { SectionWrapper, TrackList, TimeRangeButtons } from '../components';
 
-const TopArtists = () => {
-    const [topArtists, setTopArtists] = useState(null);
+const TopTracks = () => {
+    const [topTracks, setTopTracks] = useState(null);
     const [activeRange, setActiveRange] = useState('short');
 
     useEffect(() => {
         const fetchData = async () => {
-            const userTopArtists = await getTopArtists(`${activeRange}_term`);
-            setTopArtists(userTopArtists.data);
+            const userTopTracks = await getTopTracks(`${activeRange}_term`);
+            setTopTracks(userTopTracks.data);
         };
 
         catchErrors(fetchData());
     }, [activeRange]);
 
-    console.log(TopArtists);
     return (
         <main>
-            {topArtists && (
+            {topTracks && (
                 <SectionWrapper
-                    title="Top Artists"
+                    title="Top Tracks"
                     breadcrumb="true">
                     <TimeRangeButtons
                         activeRange={activeRange}
                         setActiveRange={setActiveRange}
                     />
-                    <ArtistsGrid artists={topArtists.items.slice(0, 10)} />
+                    <TrackList tracks={topTracks.items} />
                 </SectionWrapper>
             )}
         </main>
     );
 };
-
-export default TopArtists;
+export default TopTracks;
