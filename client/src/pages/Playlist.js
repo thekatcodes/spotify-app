@@ -4,7 +4,7 @@ import axios from 'axios';
 import { catchErrors } from '../utils';
 import { getPlaylistById, getAudioFeaturesForTracks } from '../Spotify';
 import { TrackList, SectionWrapper } from '../components';
-import { StyledHeader } from '../styles';
+import { StyledHeader, StyledDropdown } from '../styles';
 
 const Playlist = () => {
     const { id } = useParams();
@@ -165,33 +165,11 @@ const Playlist = () => {
                             </div>
                         </div>
                     </StyledHeader>
-                    <div>
-                        <label
-                            className="sr-only"
-                            htmlFor="order-select">
-                            Sort tracks
-                        </label>
-                        <select
-                            name="track-order"
-                            id="order-select"
-                            onChange={(e) => setSortValue(e.target.value)}>
-                            <option value="">Sort tracks</option>
-                            {sortOptions.map((option, i) => (
-                                <option
-                                    value={option}
-                                    key={i}>
-                                    {`${option
-                                        .charAt(0)
-                                        .toUpperCase()}${option.slice(1)}`}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
                     <main>
                         <SectionWrapper
                             title="Playlist"
                             breadcrumb={true}>
-                            <div>
+                            <StyledDropdown active={!!sortValue}>
                                 <label
                                     className="sr-only"
                                     htmlFor="order-select">
@@ -216,7 +194,7 @@ const Playlist = () => {
                                         </option>
                                     ))}
                                 </select>
-                            </div>
+                            </StyledDropdown>
                             {sortedTracks && (
                                 <TrackList tracks={sortedTracks} />
                             )}
